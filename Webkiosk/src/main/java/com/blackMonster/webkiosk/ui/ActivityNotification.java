@@ -7,13 +7,12 @@ import android.webkit.WebViewClient;
 
 import com.blackMonster.notifications.LocalData;
 import com.blackMonster.webkiosk.SharedPrefs.MainPrefs;
-import com.blackMonster.webkiosk.ui.BaseActivity;
 import com.blackMonster.webkioskApp.R;
 import com.google.analytics.tracking.android.EasyTracker;
 
-import org.apache.http.util.EncodingUtils;
-
 import java.net.URLEncoder;
+
+import cz.msebera.android.httpclient.util.EncodingUtils;
 
 /**
  * Activity for notifications published by developers.

@@ -5,25 +5,22 @@ import android.content.Context;
 import com.blackMonster.webkiosk.utils.M;
 import com.blackMonster.webkiosk.utils.NetworkUtils;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
+
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.NameValuePair;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 /**
  * Manages logging in to Webkiosk website.
  */
 class SiteLogin {
-
-
 	private static final String TAG = "SiteLogin";
 
 	private HttpClient httpclient=null;
@@ -37,7 +34,7 @@ class SiteLogin {
 
 		if (!NetworkUtils.isInternetAvailable(context)) return LoginStatus.CONN_ERROR;
 
-		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+		ArrayList<NameValuePair> formparams = new ArrayList<NameValuePair>();
 		WebkioskWebsite.initiliseLoginDetails(formparams, colg, enroll, pass);
 		
 		httpclient = new DefaultHttpClient();
