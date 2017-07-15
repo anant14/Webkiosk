@@ -17,6 +17,8 @@ import com.blackMonster.webkiosk.crawler.LoginStatus;
 import com.blackMonster.webkiosk.services.AutoRefreshAlarmService;
 import com.blackMonster.webkiosk.services.ServiceRefreshTimetable;
 
+import java.io.IOException;
+
 public class RefreshFullDB {
     static final String TAG = "serviceLogin";
     public static final String REFRESH_TYPE = "refType";
@@ -102,7 +104,11 @@ public class RefreshFullDB {
 
             RefreshDBPrefs.setStatus(RefreshStatus.STOPPED, context);
             RefreshDBPrefs.setFirstRefreshOver(context);    //Indented to call only when it is first refresh. But calling it every time doesn't harm.
-            crawlerDelegate.reset();
+            try {
+                crawlerDelegate.reset();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             ServiceRefreshTimetable.runIfNotRunning(context); //Start refresh timetable.
             NotificationManager.manageNotificaiton(context);

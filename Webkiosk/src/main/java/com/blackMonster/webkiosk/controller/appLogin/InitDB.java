@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.blackMonster.webkiosk.controller.RefreshBroadcasts;
 import com.blackMonster.webkiosk.controller.RefreshStatus;
@@ -56,6 +57,7 @@ public class InitDB {
         int result;
 
         try {
+            Log.d(TAG, "startKeAndar: ");
             RefreshDBPrefs.setStatus(RefreshStatus.LOGGING_IN, context);
             crawlerDelegate = new CrawlerDelegate(context);
             result = crawlerDelegate.login(colg, enroll, pass);

@@ -8,6 +8,7 @@ import com.blackMonster.webkiosk.crawler.Model.SubjectAttendance;
 import com.blackMonster.webkiosk.crawler.dateSheet.DSSPFetch;
 import com.blackMonster.webkiosk.crawler.dateSheet.DS_SP;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public class CrawlerDelegate {
         return siteLogin.login(colg, enroll, pass, context);
     }
 
-    public void reset() {
+    public void reset() throws IOException {
         if (siteLogin != null) siteLogin.close();
         siteLogin = null;
     }

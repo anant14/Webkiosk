@@ -15,15 +15,17 @@ import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
-import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import cz.msebera.android.httpclient.impl.client.CloseableHttpClient;
+import cz.msebera.android.httpclient.impl.client.DefaultRedirectStrategy;
+import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
 
 /**
  * Manages logging in to Webkiosk website.
  */
-class SiteLogin {
+class SiteLogin extends DefaultRedirectStrategy {
 	private static final String TAG = "SiteLogin";
 
-	private HttpClient httpclient=null;
+	private CloseableHttpClient httpclient=null;
 
 
 	HttpClient getConnection() {
@@ -36,8 +38,9 @@ class SiteLogin {
 
 		ArrayList<NameValuePair> formparams = new ArrayList<NameValuePair>();
 		WebkioskWebsite.initiliseLoginDetails(formparams, colg, enroll, pass);
-		
-		httpclient = new DefaultHttpClient();
+
+        httpclient = HttpClientBuilder.create().build();
+
 		HttpPost httppost = new HttpPost(WebkioskWebsite.getLoginUrl(colg));
 		BufferedReader reader=null;
 		Integer status = null;
@@ -46,10 +49,9 @@ class SiteLogin {
 					"UTF-8");
 			httppost.setEntity(entity);
 			HttpResponse response = httpclient.execute(httppost);
-			reader = new BufferedReader(new InputStreamReader(
-					response.getEntity().getContent()));
-			status = responseStatus(reader);
-
+				reader = new BufferedReader(new InputStreamReader(
+						response.getEntity().getContent()));
+				status = responseStatus(reader);
 		} catch (IOException e) {
 			status = LoginStatus.UNKNOWN_ERROR;
 			httppost.abort();
@@ -57,8 +59,12 @@ class SiteLogin {
 		} 
 		
 		if (status != LoginStatus.LOGIN_DONE) {
-			httpclient.getConnectionManager().shutdown();
-		}
+            try {
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 		
 		if (reader!= null)
 			try {
@@ -93,11 +99,12 @@ class SiteLogin {
 	}
 
 
-	void close() {
+	void close() throws IOException {
 		if (httpclient !=null)
-		httpclient.getConnectionManager().shutdown();
+		httpclient.close();
 
 	}
+
 
 
 }
