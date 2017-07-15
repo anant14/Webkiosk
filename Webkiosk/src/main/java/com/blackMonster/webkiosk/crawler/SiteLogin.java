@@ -16,13 +16,14 @@ import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.impl.client.CloseableHttpClient;
-import cz.msebera.android.httpclient.impl.client.DefaultRedirectStrategy;
 import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
+import cz.msebera.android.httpclient.impl.client.LaxRedirectStrategy;
+import cz.msebera.android.httpclient.protocol.HTTP;
 
 /**
  * Manages logging in to Webkiosk website.
  */
-class SiteLogin extends DefaultRedirectStrategy {
+class SiteLogin {
 	private static final String TAG = "SiteLogin";
 
 	private CloseableHttpClient httpclient=null;
@@ -39,14 +40,13 @@ class SiteLogin extends DefaultRedirectStrategy {
 		ArrayList<NameValuePair> formparams = new ArrayList<NameValuePair>();
 		WebkioskWebsite.initiliseLoginDetails(formparams, colg, enroll, pass);
 
-        httpclient = HttpClientBuilder.create().build();
-
+        httpclient = HttpClientBuilder.create().setRedirectStrategy(new LaxRedirectStrategy()).build();
 		HttpPost httppost = new HttpPost(WebkioskWebsite.getLoginUrl(colg));
 		BufferedReader reader=null;
 		Integer status = null;
 		try {
 			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams,
-					"UTF-8");
+					HTTP.UTF_8);
 			httppost.setEntity(entity);
 			HttpResponse response = httpclient.execute(httppost);
 				reader = new BufferedReader(new InputStreamReader(
