@@ -10,7 +10,6 @@ import android.support.v4.app.ListFragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 
@@ -62,7 +61,7 @@ public class TimetableListFragment extends ListFragment {
         if (classList == null)  //Error handling
             return;
 
-        adapter = new SingleDayTimetableAdapter(currentDay, classList, getActivity());
+        adapter = new SingleDayTimetableAdapter(currentDay, classList, getActivity(),getFragmentManager());
         setListAdapter(adapter);
         if (!TimetableDbHelper.databaseExists(getActivity()))
             setEmptyText(getResources().getString(R.string.timetable_na));

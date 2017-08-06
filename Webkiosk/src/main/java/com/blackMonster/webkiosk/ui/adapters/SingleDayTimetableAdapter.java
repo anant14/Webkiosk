@@ -1,7 +1,14 @@
 package com.blackMonster.webkiosk.ui.adapters;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +16,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blackMonster.webkiosk.SharedPrefs.RefreshDBPrefs;
 import com.blackMonster.webkiosk.controller.Timetable.TimetableUtils;
 import com.blackMonster.webkiosk.controller.model.SingleClass;
+import com.blackMonster.webkiosk.ui.DetailedAtndActivity;
+import com.blackMonster.webkiosk.ui.Dialog.ModifyTimetableDialog;
 import com.blackMonster.webkiosk.ui.TimeLTP;
+import com.blackMonster.webkiosk.ui.TimetableActivity;
+import com.blackMonster.webkiosk.ui.TimetableListFragment;
 import com.blackMonster.webkiosk.ui.UIUtils;
 import com.blackMonster.webkioskApp.R;
 
@@ -24,14 +36,17 @@ import java.util.List;
  * Created by akshansh on 26/07/15.
  */
 public class SingleDayTimetableAdapter extends ArrayAdapter<SingleClass> {
+    BroadcastModifyDialog broadcastModifyTimetableDialog;
     int currentDay;                                //Day whose data is to be displayed(Mon, Tue etc.)
     Context context;
+    FragmentManager fragmentManager;
     List<SingleClass> values;                      //Data to be displayed.
 
-    public SingleDayTimetableAdapter(int currentDay, List<SingleClass> objects, Context context) {
+    public SingleDayTimetableAdapter(int currentDay, List<SingleClass> objects, Context context, FragmentManager fm) {
         super(context, R.layout.activity_timetable_row, objects);
         this.currentDay = currentDay;
         this.context = context;
+        fragmentManager=fm;
         values = objects;
     }
 
@@ -46,15 +61,53 @@ public class SingleDayTimetableAdapter extends ArrayAdapter<SingleClass> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.activity_timetable_row,
                 parent, false);
 
-        SingleClass singleClass = values.get(position);
+        final SingleClass singleClass = values.get(position);
+        rowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, singleClass.getSubjectName()+" "+singleClass.getSubjectCode(), Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(context,DetailedAtndActivity.class);
+                intent.putExtra(DetailedAtndActivity.SUB_NAME,singleClass.getSubjectName());
+                intent.putExtra(DetailedAtndActivity.SUB_CODE,singleClass.getSubjectCode());
+                context.startActivity(intent);
+            }
+        });
+        rowView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                createDialog(position,singleClass); //Modify timetable dialog
+                notifyDataSetChanged();
+                registerReceiver();     //To receive timetable modification status.
+                return true;
+            }
+            private void createDialog(int position, SingleClass singleClass) {
+                DialogFragment dialogFragment = new ModifyTimetableDialog();
 
+                Bundle args = new Bundle();
+                args.putInt(TimetableListFragment.ARG_DAY, currentDay);
+                args.putInt(ModifyTimetableDialog.ARG_CURRENT_TIME, singleClass.getTime());
+                args.putString(ModifyTimetableDialog.ARG_CURRENT_VENUE,
+                        singleClass.getVenue());
+                dialogFragment.setArguments(args);
+                dialogFragment.show(fragmentManager, "timetable");
+            }
+            private void registerReceiver() {
+                broadcastModifyTimetableDialog = new BroadcastModifyDialog();
+                LocalBroadcastManager
+                        .getInstance(context)
+                        .registerReceiver(
+                                broadcastModifyTimetableDialog,
+                                new IntentFilter(
+                                        ModifyTimetableDialog.BROADCAST_MODIFY_TIMETABLE_RESULT));
+            }
+        });
         setProgressCircle(singleClass, rowView);
         ((TextView) rowView.findViewById(R.id.timetable_Sub_name))
                 .setText(singleClass.getSubjectName());
@@ -92,6 +145,8 @@ public class SingleDayTimetableAdapter extends ArrayAdapter<SingleClass> {
 
     }
 
+
+
     //Sets time and type("L","T","P") of clock on left of every class.
     private void setProgressCircle(SingleClass singleClass, View view) {
         int t2;
@@ -103,6 +158,21 @@ public class SingleDayTimetableAdapter extends ArrayAdapter<SingleClass> {
 
         ((TimeLTP) view.findViewById(R.id.timetable_TimeLTP)).setParams(
                 singleClass.getTime(), t2, singleClass.getClassType());
+    }
+    private class BroadcastModifyDialog extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                notifyDataSetChanged();
+                LocalBroadcastManager.getInstance(context)
+                        .unregisterReceiver(broadcastModifyTimetableDialog); //modification done, better to unregister it.
+                broadcastModifyTimetableDialog = null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     //Highlight ongoing class.

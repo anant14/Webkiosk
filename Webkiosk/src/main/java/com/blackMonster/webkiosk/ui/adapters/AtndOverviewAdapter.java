@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.support.v4.widget.CursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.blackMonster.webkiosk.SharedPrefs.RefreshDBPrefs;
 import com.blackMonster.webkiosk.databases.AttendanceUtils;
 import com.blackMonster.webkiosk.databases.Tables.AttendenceOverviewTable;
+import com.blackMonster.webkiosk.databases.Tables.DetailedAttendanceTable;
 import com.blackMonster.webkiosk.ui.UIUtils;
 import com.blackMonster.webkioskApp.R;
 
@@ -44,10 +46,23 @@ public class AtndOverviewAdapter extends CursorAdapter {
         String subCode = cursor.getString(cursor
                 .getColumnIndex(AttendenceOverviewTable.C_CODE));
         setTextView(R.id.atndo_Sub_name, subName, view);
-
-
+        Log.d("TAGGER", "bindView: "+new DetailedAttendanceTable(subCode,0,context).getPresentCount());
+        Log.d("TAGGER", "bindView: Total Classes "+subName+" "+new DetailedAttendanceTable(subCode,0,context).getTotalClasses());
         int pbProgress;
-
+        float presentTotal=new DetailedAttendanceTable(subCode,0,context).getPresentCount();
+        float totalClasses=new DetailedAttendanceTable(subCode,0,context).getTotalClasses();
+        int ifPresent=0;
+        int ifAbsent=0;
+        if(totalClasses==0){
+            ifPresent=100;
+            ifAbsent=0;
+        }
+        else{
+            ifPresent= (int) Math.ceil(((presentTotal+1)/(totalClasses+1))*100);
+            ifAbsent= (int) Math.ceil((presentTotal/(totalClasses+1))*100);
+        }
+        Log.d("PRESENT", "bindView: "+subName+" "+ifPresent);
+        Log.d("ABSENT", "bindView: "+subName+" "+ifAbsent);
         if (AttendanceUtils.isLab(subCode, context)) {
             pbProgress = cursor.getInt(cursor
                     .getColumnIndex(AttendenceOverviewTable.C_PRACTICAL));
@@ -61,17 +76,28 @@ public class AtndOverviewAdapter extends CursorAdapter {
             setTextView(R.id.atndo_tute, "T : " + atndToString(cursor.getInt(cursor
                     .getColumnIndex(AttendenceOverviewTable.C_TUTORIAL))), view);
         }
-
+        setTextView(R.id.atndo_present_attendence,atndToString(ifPresent),view);
+        setTextView(R.id.atndo_absent_attendence,atndToString(ifAbsent),view);
         setTextView(R.id.atndo_overall_attendence, atndToString(pbProgress), view);
 
 
        //Setting progress bar showing attendance with color.
         if (pbProgress == -1)   //In case attendance is not available.
             pbProgress = 0;
+        ProgressBar progressBarPresent= (ProgressBar) view.findViewById(R.id.atndo_progressBar_present);
+        ProgressBar progressBarAbsent= (ProgressBar) view.findViewById(R.id.atndo_progressBar_absent);
         ProgressBar pbar = ((ProgressBar) view.findViewById(R.id.atndo_progressBar));
+        Rect presentBounds = progressBarPresent.getProgressDrawable().getBounds();
+        Rect absentBounds = progressBarAbsent.getProgressDrawable().getBounds();
         Rect bounds = pbar.getProgressDrawable().getBounds(); //Save the drawable bound
+        UIUtils.setProgressBarColor(progressBarPresent, ifPresent, context);
+        UIUtils.setProgressBarColor(progressBarAbsent, ifAbsent, context);
         UIUtils.setProgressBarColor(pbar, pbProgress, context);
+        progressBarPresent.setProgress(ifPresent);
+        progressBarAbsent.setProgress(ifAbsent);
         pbar.setProgress(pbProgress);
+        progressBarPresent.getProgressDrawable().setBounds(presentBounds);
+        progressBarAbsent.getProgressDrawable().setBounds(absentBounds);
         pbar.getProgressDrawable().setBounds(bounds);
 
 

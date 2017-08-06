@@ -37,7 +37,8 @@
         </activity>
         <activity
             android:name="com.blackMonster.webkiosk.ui.LoginActivity"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity android:name="com.blackMonster.webkiosk.ui.BaseActivity" >
         </activity>

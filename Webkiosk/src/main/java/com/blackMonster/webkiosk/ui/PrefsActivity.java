@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -26,6 +25,7 @@ public class PrefsActivity extends android.preference.PreferenceActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setPreferenceFile();
 		addPreferencesFromResource(R.xml.preferences);
 
@@ -43,23 +43,23 @@ public class PrefsActivity extends android.preference.PreferenceActivity
 		pr.setSummary(MainPrefs.getEnroll(this));
 
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-
-			getActionBar().setBackgroundDrawable(
-					new ColorDrawable(getResources().getColor(R.color.theme)));
-			getActionBar().setTitle("Settings");
-			getActionBar().setLogo(getResources().getDrawable(R.drawable.ic_logo));
+			/*actionBar.setBackgroundDrawable(
+					new ColorDrawable(getResources().getColor(R.color.theme)));*/
+			/*actionBar.setTitle("Settings");
+			actionBar.setLogo(getResources().getDrawable(R.drawable.ic_logo));*/
 
 		}
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+			/*getActionBar().setDisplayHomeAsUpEnabled(true);*/
 		}
+
 
 	}
 
 	private void setPreferenceFile() {
 		PreferenceManager prefMgr = getPreferenceManager();
 		prefMgr.setSharedPreferencesName(MainPrefs.PREFS_NAME);
-		prefMgr.setSharedPreferencesMode(MODE_WORLD_READABLE);
+		prefMgr.setSharedPreferencesMode(MODE_PRIVATE);
 	}
 
 	@Override

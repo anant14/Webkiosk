@@ -6,7 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
@@ -20,16 +20,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blackMonster.webkiosk.controller.RefreshBroadcasts;
-import com.blackMonster.webkiosk.controller.RefreshStatus;
-import com.blackMonster.webkiosk.controller.appLogin.CreateDatabase;
 import com.blackMonster.webkiosk.SharedPrefs.MainPrefs;
 import com.blackMonster.webkiosk.SharedPrefs.RefreshDBPrefs;
-import com.blackMonster.webkiosk.crawler.LoginStatus;
+import com.blackMonster.webkiosk.WebkioskApp;
+import com.blackMonster.webkiosk.controller.RefreshBroadcasts;
+import com.blackMonster.webkiosk.controller.RefreshStatus;
+import com.blackMonster.webkiosk.controller.Timetable.TimetableCreateRefresh;
+import com.blackMonster.webkiosk.controller.appLogin.CreateDatabase;
 import com.blackMonster.webkiosk.controller.appLogin.InitDB;
 import com.blackMonster.webkiosk.controller.updateAtnd.UpdateAvgAtnd;
-import com.blackMonster.webkiosk.controller.Timetable.TimetableCreateRefresh;
-import com.blackMonster.webkiosk.WebkioskApp;
+import com.blackMonster.webkiosk.crawler.LoginStatus;
 import com.blackMonster.webkiosk.services.ServiceAppLogin;
 import com.blackMonster.webkiosk.services.ServiceRefreshAll;
 import com.blackMonster.webkiosk.ui.Dialog.RefreshDbErrorDialogStore;
@@ -47,7 +47,7 @@ public class LoginActivity extends ActionBarActivity implements
     AlertDialog dialog = null;
     String prefColg;
     boolean isRecreatingDatabase = false;
-
+    TextView name;
 
     //Called when only server login attempt is done.. i.e when college server has responded to login request.
     private BroadcastReceiver broadcastLoginResult = new BroadcastReceiver() {
@@ -115,12 +115,15 @@ public class LoginActivity extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().setBackgroundDrawable(
+       /* getSupportActionBar().setBackgroundDrawable(
                 new ColorDrawable(getResources().getColor(R.color.theme)));
         getSupportActionBar().setLogo(
-                getResources().getDrawable(R.drawable.ic_logo));
+                getResources().getDrawable(R.drawable.ic_logo));*/
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_material);
+        name= (TextView) findViewById(R.id.name);
+        Typeface tf = Typeface.createFromAsset(this.getAssets(),"fonts/roboto_thin.ttf");
+        name.setTypeface(tf);
         initSpinner();  //Drop down list of colleges.
     }
 

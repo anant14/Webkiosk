@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.blackMonster.webkiosk.crawler.Model.DetailedAttendance;
 import com.blackMonster.webkiosk.databases.DbHelper;
@@ -83,6 +84,26 @@ public class DetailedAttendanceTable {
         if (cursor != null)
             cursor.moveToFirst();
         return cursor;
+    }
+    public int getPresentCount(){
+        int present=0;
+        db= DbHelper.getInstance(context).getReadableDatabase();
+        Cursor cursor=db.query(TABLE,new String[]{C_STATUS},C_STATUS+" =?",new String[]{"1"},null,null,null);
+        int columnName=cursor.getColumnIndex(C_STATUS);
+        while(cursor.moveToNext()){
+            present+=cursor.getInt(columnName);
+            Log.d("WEBKIOSKP", "getPresentCount: "+cursor.getInt(columnName));
+        }
+        return present;
+    }
+    public int getTotalClasses(){
+        int totalClass=0;
+        db=DbHelper.getInstance(context).getReadableDatabase();
+        Cursor cursor=db.query(TABLE,new String[]{C_STATUS},null,null,null,null,null);
+        while(cursor.moveToNext()){
+            totalClass++;
+        }
+        return totalClass;
     }
 
     public void deleteAllRows() {
