@@ -202,6 +202,7 @@ public class ModifyTimetableDialog extends DialogFragment {
                 .getInstance(context)
                 .sendBroadcast(
                         new Intent(BROADCAST_MODIFY_TIMETABLE_RESULT));
+
     }
 
 

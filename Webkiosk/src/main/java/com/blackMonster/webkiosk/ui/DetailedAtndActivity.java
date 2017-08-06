@@ -8,11 +8,12 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.blackMonster.webkiosk.controller.RefreshBroadcasts;
 import com.blackMonster.webkiosk.SharedPrefs.RefreshDBPrefs;
+import com.blackMonster.webkiosk.controller.RefreshBroadcasts;
 import com.blackMonster.webkiosk.controller.RefreshStatus;
 import com.blackMonster.webkiosk.controller.updateAtnd.UpdateDetailedAttendance;
 import com.blackMonster.webkiosk.databases.Tables.DetailedAttendanceTable;
@@ -71,6 +72,8 @@ public class DetailedAtndActivity extends BaseActivity {
     private void showListView() {
         Cursor cursor = new DetailedAttendanceTable(
                 code, 0, this).getData();
+        int present=new DetailedAttendanceTable(code, 0, this).getPresentCount();
+        Log.d("TOTALPRESENT", "showListView: "+String.valueOf(present));
         ListView listView = new ListView(this);
         adapter = new DetailedAttendanceAdapter(this, cursor);
         listView.setAdapter(adapter);

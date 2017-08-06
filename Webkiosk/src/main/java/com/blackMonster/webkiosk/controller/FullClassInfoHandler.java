@@ -5,9 +5,9 @@ import android.content.Context;
 import com.blackMonster.webkiosk.controller.Timetable.TimetableDelegate;
 import com.blackMonster.webkiosk.controller.Timetable.model.ClassTime;
 import com.blackMonster.webkiosk.controller.model.SingleClass;
-import com.blackMonster.webkiosk.databases.model.MySubjectAttendance;
 import com.blackMonster.webkiosk.databases.Tables.AttendenceOverviewTable;
 import com.blackMonster.webkiosk.databases.Tables.TempAtndOverviewTable;
+import com.blackMonster.webkiosk.databases.model.MySubjectAttendance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +32,7 @@ public class FullClassInfoHandler {
 
 
         AttendenceOverviewTable atndOTable = new AttendenceOverviewTable(context);
+
         TempAtndOverviewTable tempAtndOTable = new TempAtndOverviewTable(context);  //Table created from "PreReg subjects" of webkiosk website.
 
 
