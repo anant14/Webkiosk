@@ -3,7 +3,6 @@ package com.blackMonster.webkiosk.ui;
 import android.content.Context;
 import android.widget.ProgressBar;
 
-import com.blackMonster.webkiosk.SharedPrefs.RefreshDBPrefs;
 import com.blackMonster.webkioskApp.R;
 
 /**
@@ -29,5 +28,4 @@ public class UIUtils {
                     R.drawable.custom_progressbar_red));
 
     }
-
 }

@@ -16,15 +16,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blackMonster.webkiosk.SharedPrefs.RefreshDBPrefs;
 import com.blackMonster.webkiosk.controller.Timetable.TimetableUtils;
 import com.blackMonster.webkiosk.controller.model.SingleClass;
-import com.blackMonster.webkiosk.ui.DetailedAtndActivity;
 import com.blackMonster.webkiosk.ui.Dialog.ModifyTimetableDialog;
 import com.blackMonster.webkiosk.ui.TimeLTP;
-import com.blackMonster.webkiosk.ui.TimetableActivity;
 import com.blackMonster.webkiosk.ui.TimetableListFragment;
 import com.blackMonster.webkiosk.ui.UIUtils;
 import com.blackMonster.webkioskApp.R;
@@ -69,7 +66,9 @@ public class SingleDayTimetableAdapter extends ArrayAdapter<SingleClass> {
                 parent, false);
 
         final SingleClass singleClass = values.get(position);
-        rowView.setOnClickListener(new View.OnClickListener() {
+
+        //TODO
+       /* rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, singleClass.getSubjectName()+" "+singleClass.getSubjectCode(), Toast.LENGTH_SHORT).show();
@@ -78,7 +77,7 @@ public class SingleDayTimetableAdapter extends ArrayAdapter<SingleClass> {
                 intent.putExtra(DetailedAtndActivity.SUB_CODE,singleClass.getSubjectCode());
                 context.startActivity(intent);
             }
-        });
+        });*/
         rowView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

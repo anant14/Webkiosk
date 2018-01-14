@@ -51,9 +51,4 @@ public class LocalData {
 		initPrefInstance(context);
 		prefs.edit().putBoolean(SHOW_ALERT, true).commit();
 	}
-	
-	
-	
-	
-	
 }

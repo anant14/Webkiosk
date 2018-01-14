@@ -76,28 +76,28 @@ public class AtndOverviewAdapter extends CursorAdapter {
             setTextView(R.id.atndo_tute, "T : " + atndToString(cursor.getInt(cursor
                     .getColumnIndex(AttendenceOverviewTable.C_TUTORIAL))), view);
         }
-        setTextView(R.id.atndo_present_attendence,atndToString(ifPresent),view);
-        setTextView(R.id.atndo_absent_attendence,atndToString(ifAbsent),view);
+        setTextView(R.id.atndo_absent_attendence,atndToString(ifPresent),view);
+        setTextView(R.id.atndo_present_attendence,atndToString(ifAbsent),view);
         setTextView(R.id.atndo_overall_attendence, atndToString(pbProgress), view);
 
 
        //Setting progress bar showing attendance with color.
         if (pbProgress == -1)   //In case attendance is not available.
             pbProgress = 0;
-        ProgressBar progressBarPresent= (ProgressBar) view.findViewById(R.id.atndo_progressBar_present);
-        ProgressBar progressBarAbsent= (ProgressBar) view.findViewById(R.id.atndo_progressBar_absent);
+        /*TextView progressBarPresent= (TextView) view.findViewById(R.id.atndo_present_attendence);
+        TextView progressBarAbsent= (TextView) view.findViewById(R.id.atndo_absent_attendence);*/
         ProgressBar pbar = ((ProgressBar) view.findViewById(R.id.atndo_progressBar));
-        Rect presentBounds = progressBarPresent.getProgressDrawable().getBounds();
-        Rect absentBounds = progressBarAbsent.getProgressDrawable().getBounds();
+       /* Rect presentBounds = progressBarPresent.getProgressDrawable().getBounds();
+        Rect absentBounds = progressBarAbsent.getProgressDrawable().getBounds();*/
         Rect bounds = pbar.getProgressDrawable().getBounds(); //Save the drawable bound
-        UIUtils.setProgressBarColor(progressBarPresent, ifPresent, context);
-        UIUtils.setProgressBarColor(progressBarAbsent, ifAbsent, context);
+        /*UIUtils.setProgressBarColor(progressBarPresent, ifPresent, context);
+        UIUtils.setProgressBarColor(progressBarAbsent, ifAbsent, context);*/
         UIUtils.setProgressBarColor(pbar, pbProgress, context);
-        progressBarPresent.setProgress(ifPresent);
-        progressBarAbsent.setProgress(ifAbsent);
+        /*progressBarPresent.setProgress(ifPresent);
+        progressBarAbsent.setProgress(ifAbsent);*/
         pbar.setProgress(pbProgress);
-        progressBarPresent.getProgressDrawable().setBounds(presentBounds);
-        progressBarAbsent.getProgressDrawable().setBounds(absentBounds);
+        /*progressBarPresent.getProgressDrawable().setBounds(presentBounds);
+        progressBarAbsent.getProgressDrawable().setBounds(absentBounds);*/
         pbar.getProgressDrawable().setBounds(bounds);
 
 

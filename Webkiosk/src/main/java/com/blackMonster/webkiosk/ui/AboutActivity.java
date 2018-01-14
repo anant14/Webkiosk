@@ -98,4 +98,19 @@ public class AboutActivity extends ActionBarActivity {
 
 	}
 
+	public void anantClick(View v) {
+		Intent fbIntent;
+		try {
+			getPackageManager().getPackageInfo("com.facebook.katana", 0);
+			fbIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("fb://profile/1617693874"));
+		} catch (Exception e) {
+			fbIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("https://www.facebook.com/anant.lifegud"));
+		}
+
+		startActivity(fbIntent);
+
+	}
+
 }

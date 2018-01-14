@@ -53,52 +53,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical" >
-
-        <ProgressBar
-            android:id="@+id/atndo_progressBar_present"
-            style="?android:attr/progressBarStyleHorizontal"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:max="100"
-            android:paddingRight="40dp"
-            android:progressDrawable="@drawable/custom_progressbar_green" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Missing next:"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/atndo_present_attendence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="100%"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Attending next:"
+                android:layout_marginLeft="50dp"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/atndo_present_attendence"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="100%"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/atndo_absent_attendence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="100%"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical" >
-
-        <ProgressBar
-            android:id="@+id/atndo_progressBar_absent"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:max="100"
-            android:paddingRight="40dp"
-            android:progressDrawable="@drawable/custom_progressbar_green" />
-
-        <TextView
-            android:id="@+id/atndo_absent_attendence"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="100%"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-    </RelativeLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -3,21 +3,26 @@
     package="com.blackMonster.webkioskApp"
     android:installLocation="internalOnly"
     android:versionCode="17"
-    android:versionName="6.2" >
+    android:versionName="6.2">
 
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="25" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_LOGS"/>  <!-- optional for crittercism -->
-     <uses-permission android:name="android.permission.GET_TASKS"/>`<!-- optional for crittercism -->
+    <uses-permission android:name="android.permission.READ_LOGS" /> <!-- optional for crittercism -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    `
+    <!-- optional for crittercism -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
     <application
         android:name="com.blackMonster.webkiosk.WebkioskApp"
         android:allowBackup="true"
@@ -25,10 +30,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:logo="@drawable/ic_logo"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name="com.blackMonster.webkiosk.ui.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" >
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,39 +43,31 @@
         <activity
             android:name="com.blackMonster.webkiosk.ui.LoginActivity"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
-        <activity android:name="com.blackMonster.webkiosk.ui.BaseActivity" >
-        </activity>
-        <activity android:name="com.blackMonster.webkiosk.ui.AtndOverviewActivity" >
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name="com.blackMonster.webkiosk.ui.BaseActivity" />
+        <activity android:name="com.blackMonster.webkiosk.ui.AtndOverviewActivity" />
         <activity
             android:name="com.blackMonster.webkiosk.ui.DetailedAtndActivity"
-            android:parentActivityName="com.blackMonster.webkiosk.ui.AtndOverviewActivity" >
+            android:parentActivityName="com.blackMonster.webkiosk.ui.AtndOverviewActivity">
 
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.blackMonster.webkiosk.ui.AtndOverviewActivity" />
->
+            >
         </activity>
         <activity
             android:name="com.blackMonster.webkiosk.ui.TimetableActivity"
-            android:theme="@style/SampleTheme.Light" >
-        </activity>
+            android:theme="@style/SampleTheme.Light" />
         <activity
             android:name="com.blackMonster.webkiosk.ui.WebViewActivity"
-            android:configChanges="orientation|screenSize" >
-        </activity>
-        <activity android:name="com.blackMonster.webkiosk.ui.PrefsActivity" >
-        </activity>
-        <activity android:name="com.blackMonster.webkiosk.ui.LogoutActivity" >
-        </activity>
-        <activity android:name="com.blackMonster.webkiosk.ui.ActivityDateSheet" >
-        </activity>
+            android:configChanges="orientation|screenSize" />
+        <activity android:name="com.blackMonster.webkiosk.ui.PrefsActivity" />
+        <activity android:name="com.blackMonster.webkiosk.ui.LogoutActivity" />
+        <activity android:name="com.blackMonster.webkiosk.ui.ActivityDateSheet" />
         <activity
             android:name="com.blackMonster.webkiosk.ui.AboutActivity"
-            android:parentActivityName="com.blackMonster.webkiosk.ui.PrefsActivity" >
+            android:parentActivityName="com.blackMonster.webkiosk.ui.PrefsActivity">
 
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
@@ -78,27 +75,28 @@
                 android:value="com.blackMonster.webkiosk.ui.PrefsActivity" />
             >
         </activity>
-        <activity android:name="com.blackMonster.webkiosk.ui.ActivityCustomerSupport" >
-        </activity>
-        <activity android:name="com.blackMonster.webkiosk.ui.ActivityNotification"></activity>
+        <activity android:name="com.blackMonster.webkiosk.ui.ActivityCustomerSupport" />
+        <activity android:name="com.blackMonster.webkiosk.ui.ActivityNotification" />
 
-        <service android:name="com.blackMonster.webkiosk.services.AutoRefreshAlarmService" >
-        </service>
-        <service android:name="com.blackMonster.webkiosk.services.ServiceRefreshTimetable" >
-        </service>
-        <service android:name="com.blackMonster.webkiosk.services.ServiceAppLogin"></service>
-        <service android:name="com.blackMonster.webkiosk.services.ServiceRefreshAll"></service>
--
-        <receiver android:name="com.blackMonster.webkiosk.BroadcastReceivers.SystemBroadcastReceiver" >
- -
+        <service android:name="com.blackMonster.webkiosk.services.AutoRefreshAlarmService" />
+        <service android:name="com.blackMonster.webkiosk.services.ServiceRefreshTimetable" />
+        <service android:name="com.blackMonster.webkiosk.services.ServiceAppLogin" />
+        <service android:name="com.blackMonster.webkiosk.services.ServiceRefreshAll" />
+        -
+        <receiver android:name="com.blackMonster.webkiosk.BroadcastReceivers.SystemBroadcastReceiver">
+            -
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="***REMOVED***" />
+
+        <activity android:name="com.blackMonster.webkiosk.ui.MessMenu" />
+        <activity android:name="com.blackMonster.webkiosk.ui.MapActivity"></activity>
     </application>
 
 </manifest>

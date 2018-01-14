@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blackMonster.webkiosk.SharedPrefs.MainPrefs;
@@ -21,11 +24,9 @@ import com.google.analytics.tracking.android.EasyTracker;
 
 public class PrefsActivity extends android.preference.PreferenceActivity
 		implements OnPreferenceClickListener {
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setPreferenceFile();
 		addPreferencesFromResource(R.xml.preferences);
 
@@ -44,8 +45,8 @@ public class PrefsActivity extends android.preference.PreferenceActivity
 
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 			/*actionBar.setBackgroundDrawable(
-					new ColorDrawable(getResources().getColor(R.color.theme)));*/
-			/*actionBar.setTitle("Settings");
+					new ColorDrawable(getResources().getColor(R.color.theme)));
+			actionBar.setTitle("Settings");
 			actionBar.setLogo(getResources().getDrawable(R.drawable.ic_logo));*/
 
 		}
@@ -53,7 +54,22 @@ public class PrefsActivity extends android.preference.PreferenceActivity
 			/*getActionBar().setDisplayHomeAsUpEnabled(true);*/
 		}
 
+	}
 
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+
+		LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
+		Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.toolbar, root, false);
+		root.addView(bar, 0); // insert at top
+		bar.setTitle("Settings");
+		bar.setNavigationOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 	}
 
 	private void setPreferenceFile() {

@@ -127,7 +127,7 @@
             android:id="@+id/imageView1"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_below="@+id/aboutdev_divider4"
+            android:layout_below="@+id/aboutdev_divider6"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:onClick="fbClick"
@@ -145,6 +145,27 @@
             android:paddingTop="20dp"
             android:text="Akshansh singh (B .Tech CSE, JIIT-62)"
             android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView4"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:onClick="anantClick"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="Anant Bansal (B .Tech CSE, JIIT-62)"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <View
+            android:id="@+id/aboutdev_divider6"
+            android:layout_width="250dp"
+            android:layout_height="1dp"
+            android:layout_below="@+id/textView5"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/darker_gray" />
     </RelativeLayout>
 
 </ScrollView>

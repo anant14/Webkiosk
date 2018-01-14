@@ -9,12 +9,11 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.blackMonster.webkiosk.controller.RefreshBroadcasts;
 import com.blackMonster.webkiosk.SharedPrefs.RefreshDBPrefs;
+import com.blackMonster.webkiosk.controller.RefreshBroadcasts;
 import com.blackMonster.webkiosk.controller.RefreshStatus;
 import com.blackMonster.webkiosk.controller.updateAtnd.UpdateAvgAtnd;
 import com.blackMonster.webkiosk.databases.Tables.AttendenceOverviewTable;
@@ -22,8 +21,8 @@ import com.blackMonster.webkiosk.ui.Dialog.RefreshDbErrorDialogStore;
 import com.blackMonster.webkiosk.ui.adapters.AtndOverviewAdapter;
 import com.blackMonster.webkioskApp.R;
 
-public class AtndOverviewActivity extends StartupActivity implements
-        OnItemClickListener {
+public class AtndOverviewActivity extends StartupActivity implements AdapterView.OnItemClickListener
+        {
     public String TAG = "AtndOverviewActivity";
 
     private Cursor cursor = null;

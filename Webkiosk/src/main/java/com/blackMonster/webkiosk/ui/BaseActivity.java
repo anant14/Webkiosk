@@ -108,7 +108,7 @@ public class BaseActivity extends ActionBarActivity {
         getSupportActionBar().setBackgroundDrawable(
                 new ColorDrawable(getResources().getColor(R.color.theme)));
         getSupportActionBar().setLogo(
-                getResources().getDrawable(R.drawable.ic_logo));
+                getResources().getDrawable(R.drawable.ic_drawer));
     }
 
     /**
@@ -124,13 +124,12 @@ public class BaseActivity extends ActionBarActivity {
         ListView listView = ((ListView) findViewById(R.id.left_drawer));
         listView.setAdapter(drawerAdapter);
 
-
+//TODO
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
                 switch (position) {
-
                     case 0:
                         intent = new Intent(BaseActivity.this, TimetableActivity.class);
                         if (StartupActivity.isStartupActivity(TimetableActivity.class,
@@ -156,13 +155,28 @@ public class BaseActivity extends ActionBarActivity {
                             Toast.makeText(getBaseContext(), getString(R.string.con_error),
                                     Toast.LENGTH_SHORT).show();
                         break;
-
                     case 3:
                         startActivity(new Intent(BaseActivity.this,
                                 ActivityDateSheet.class));
                         break;
+                    /*case 4:
+                        if (NetworkUtils.isInternetAvailable(getBaseContext())) {
+                            startActivity(new Intent(BaseActivity.this,
+                                    MessMenu.class));
+                        } else
+                            Toast.makeText(getBaseContext(), getString(R.string.con_error),
+                                    Toast.LENGTH_SHORT).show();
+                        break;
+                    case 5:
+                        if (NetworkUtils.isInternetAvailable(getBaseContext())) {
+                            startActivity(new Intent(BaseActivity.this,
+                                    MapActivity.class));
+                        } else
+                            Toast.makeText(getBaseContext(), getString(R.string.con_error),
+                                    Toast.LENGTH_SHORT).show();
+                        break;*/
 
-                    case 4:
+                    case 6:
                         startNotificationActivity();
                         break;
 
@@ -176,7 +190,7 @@ public class BaseActivity extends ActionBarActivity {
         });
 
 
-
+//TODO
         DrawerLayout mDrawerLayout;
         if (openDrawerWithIcon) {
 
@@ -189,21 +203,22 @@ public class BaseActivity extends ActionBarActivity {
             ) {
 
             };
-
-            mDrawerLayout.setDrawerListener(mDrawerToggle);
-
+            mDrawerLayout.addDrawerListener(mDrawerToggle);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
 
         }
     }
-
+//TODO
     private ArrayList<String> getDrawerList() {
         ArrayList<String> list = new ArrayList<String>();
         list.add(getString(R.string.timetable_view));
         list.add(getString(R.string.attendance_view));
         list.add(getString(R.string.web_view));
         list.add(getString(R.string.datesheet_view));
+       // list.add("Annapurna Menu");
+        //list.add("Find Class");
         if (NotificationManager.isNotificationAvailable(this))
             list.add(getString(R.string.notification_view));
         return list;
@@ -227,8 +242,7 @@ public class BaseActivity extends ActionBarActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         initDrawer();
-        if (openDrawerWithIcon)
-            mDrawerToggle.syncState();
+        mDrawerToggle.syncState();
 
     }
 
@@ -426,6 +440,6 @@ public class BaseActivity extends ActionBarActivity {
         super.onStop();
         EasyTracker.getInstance(this).activityStop(this); //Google analytics
 
-    }
+}
 
 }
