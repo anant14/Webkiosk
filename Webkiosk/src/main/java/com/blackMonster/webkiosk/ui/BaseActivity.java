@@ -242,7 +242,8 @@ public class BaseActivity extends ActionBarActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         initDrawer();
-        mDrawerToggle.syncState();
+        if(openDrawerWithIcon)
+            mDrawerToggle.syncState();
 
     }
 
