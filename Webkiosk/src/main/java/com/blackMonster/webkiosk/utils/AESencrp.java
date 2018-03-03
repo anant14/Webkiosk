@@ -75,7 +75,7 @@ public class AESencrp {
         }
         
                 
-   /*     public static byte[] hexToBytes(String str) {
+        public static byte[] hexToBytes(String str) {
                 if (str==null) {
                         return null;
                 } else if (str.length() < 2) {
@@ -88,7 +88,7 @@ public class AESencrp {
                         }
                         return buffer;
                 }
-        }*/
+        }
         
         
 

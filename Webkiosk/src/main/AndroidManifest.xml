@@ -95,8 +95,6 @@
             android:name="io.fabric.ApiKey"
             android:value="***REMOVED***" />
 
-        <activity android:name="com.blackMonster.webkiosk.ui.MessMenu" />
-        <activity android:name="com.blackMonster.webkiosk.ui.MapActivity"></activity>
     </application>
 
 </manifest>
