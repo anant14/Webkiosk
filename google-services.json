@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "908925797151",
+    "firebase_url": "https://webkiosk-8edef.firebaseio.com",
+    "project_id": "webkiosk-8edef",
+    "storage_bucket": "webkiosk-8edef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908925797151:android:315210a1d5abf391",
+        "android_client_info": {
+          "package_name": "com.blackMonster.webkioskApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908925797151-u2kgin1vc7pk9m0a1kvtaqsh8jn16eg3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6mWzLRpCvKSadVWYy_L6WtatpPlr6KHI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

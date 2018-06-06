@@ -11,7 +11,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,23 +24,23 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.blackMonster.notifications.NotificationManager;
-import com.blackMonster.webkiosk.controller.RefreshBroadcasts;
-import com.blackMonster.webkiosk.controller.RefreshStatus;
-import com.blackMonster.webkiosk.ui.Dialog.RefreshDbErrorDialogStore;
-import com.blackMonster.webkiosk.ui.Dialog.ChangePasswordDialog;
-import com.blackMonster.webkiosk.utils.M;
 import com.blackMonster.webkiosk.SharedPrefs.RefreshDBPrefs;
+import com.blackMonster.webkiosk.controller.RefreshBroadcasts;
 import com.blackMonster.webkiosk.controller.RefreshFullDB;
+import com.blackMonster.webkiosk.controller.RefreshStatus;
 import com.blackMonster.webkiosk.crawler.LoginStatus;
 import com.blackMonster.webkiosk.services.ServiceRefreshAll;
+import com.blackMonster.webkiosk.ui.Dialog.ChangePasswordDialog;
+import com.blackMonster.webkiosk.ui.Dialog.RefreshDbErrorDialogStore;
 import com.blackMonster.webkiosk.ui.adapters.BaseDrawerAdapter;
+import com.blackMonster.webkiosk.utils.M;
 import com.blackMonster.webkiosk.utils.NetworkUtils;
 import com.blackMonster.webkioskApp.R;
 import com.google.analytics.tracking.android.EasyTracker;
 
 import java.util.ArrayList;
 
-public class BaseActivity extends ActionBarActivity {
+public class BaseActivity extends AppCompatActivity {
     private String TAG = "BaseActivity";
     public LinearLayout activityContent = null; //Any activity extending BaseActivity have to  put all it's UI here.
     public boolean isReceiverRegistered = false;

@@ -9,7 +9,7 @@ import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -41,7 +41,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 /**
  * Activity showing login form.
  */
-public class LoginActivity extends ActionBarActivity implements
+public class LoginActivity extends AppCompatActivity implements
         OnItemSelectedListener {
     static final String TAG = "LoginActivity";
     AlertDialog dialog = null;
